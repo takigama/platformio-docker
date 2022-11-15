@@ -1,0 +1,10 @@
+FROM ubuntu:22.04
+
+ARG version
+
+ENV PIO_VERSION $version
+
+RUN set -x \
+    && apt update \
+    && apt install -y python-pip git file bash \
+    && pip2 install platformio==$PIO_VERSION 
