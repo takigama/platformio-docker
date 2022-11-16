@@ -43,3 +43,23 @@ docker run --device=/dev/ttyACM0 -e HOME=`pwd` -u 1000 -w `pwd` -v `pwd`:`pwd` -
 
 But it can be a bit painful and there are many things that can get in the way (user inside docker not having permissions to the
 device for eg, and dockers support for such devices can be a bit average)
+
+## Building The Docker 
+
+If you wish to build your own docker container, grab a clone of the github at the top of the page and just run (this defaults to latest
+python:3 image
+
+```
+docker build -t myownlittleplatformio:6.1.5 --build-arg version=6.1.5 -f Dockerfile .
+```
+
+If you need a platformio that needs version 2 of python (from image is python:2):
+
+```
+docker build -t myownlittleplatformio:2.0.0 --build-arg version=2.0.0 -f Dockerfile-python2 .
+```
+
+
+Change the tag to whatever you want for a tag (the bit after -t) and change the version=xxxxx to the version of platformio you are after.
+The file "allversions.txt" is all the available versions of platformio available according to pip (i.e. built from the output of
+"pip install platformio==") as per the last push to github
