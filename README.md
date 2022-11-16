@@ -10,7 +10,7 @@ Wasn't overly happy with the platformio containers available on the hub and ther
  * Have assets generated during the build mappable to directories and maintain the user ID
  * Each platformio project ends up with its own .platformio and .pio directories (nice isolation)
 
-None of the existing containers did all of the above so I build my own and pushed a tag for all versions of platofmio. There should
+None of the existing containers did all of the above so I built my own and pushed a tag for all versions of platofmio. There should
 be a tag for all versions of platformio available and the "latest" tag will always be the latest version available the last time
 the build was run
 
@@ -63,3 +63,15 @@ docker build -t myownlittleplatformio:2.0.0 --build-arg version=2.0.0 -f Dockerf
 Change the tag to whatever you want for a tag (the bit after -t) and change the version=xxxxx to the version of platformio you are after.
 The file "allversions.txt" is all the available versions of platformio available according to pip (i.e. built from the output of
 "pip install platformio==") as per the last push to github
+
+
+## Combined .platformio Directory
+
+In the use case where you just want to have one .platformio directory for all your projects you can change the command line to something like
+this:
+
+```
+docker run -e HOME=DIRECTORY_WHERE_I_WANT_MY_PLATFORMIO_DIRECTORY -u $UID -w `pwd` -v DIRECTORY_WHERE_I_WANT_MY_PLATFORMIO_DIRECTORY:DIRECTORY_WHERE_I_WANT_MY_PLATFORMIO_DIRECTORY -v `pwd`:`pwd` --rm -it takigama/platformio platformio run
+```
+
+Change DIRECTORY_WHERE_I_WANT_MY_PLATFORMIO_DIRECTORY to where you want it to store the .platformio directory
